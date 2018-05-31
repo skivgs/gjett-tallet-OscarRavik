@@ -22,12 +22,13 @@
             <label for="inpGjetting">Gjett et tall mellom 1 og 10</label>
             <input id="inpGjetting" type="number"  min="0" max="10" onchange="gjett()">
             <p id="txtBeskjed"></p>
+            <p id="txtHjelp"></p>
             <p id="txtGjettinger"></p>
             <button onclick="resetGjettinger()">Reset gjettinger</button>
         </article>
     </main>
 <footer>
-    Gjett et tall er lagd av <i>Incognito</i>
+    Gjett et tall er lagd av <i>Oscar</i>
 </footer>
     <script>
 
@@ -35,9 +36,12 @@
         var inpGjetting = document.getElementById("inpGjetting");
         var txtBeskjed = document.getElementById("txtBeskjed");
         var txtGjettinger = document.getElementById("txtGjettinger");
+        var txtHjelp = document.getElementById("txtHjelp");
 
         var korrektTall = Math.floor((Math.random()) *10) + 1;
         var gjettinger = 0;
+        var minVerdi = 0;
+        var maksVerdi = 10;
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(){
@@ -67,6 +71,19 @@
             } else {
                 txtGjettinger.innerHTML = "Du har gjettet " + gjettinger + " ganger";
             }
+
+            if (gjettetTall > korrektTall) {
+                maksVerdi = gjettetTall - 1;
+            } else {
+                minVerdi = gjettetTall + 1;
+            }
+
+            txtHjelp.innerHTML = "Minverdi er " + minVerdi + " og maks verdi er " + maksVerdi + ".";
+
+            if (gjettetTall == korrektTall) {
+                txtHjelp.innerHTML = "";
+            }
+
 
         }
 
