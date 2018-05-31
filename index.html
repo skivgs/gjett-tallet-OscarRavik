@@ -19,8 +19,11 @@
     <header><h1>Gjett et tall</h1></header>
     <main>
         <article>
-            <label for="inpGjetting">Gjett et tall mellom 1 og 10</label>
-            <input id="inpGjetting" type="number"  min="0" max="10" onchange="gjett()">
+            <form action="" onsubmit="gjett(event)" id="skjema">
+                <label for="inpGjetting">Gjett et tall mellom 1 og 10</label>
+                <input id="inpGjetting" type="number"  min="0" max="10">
+                <button>Gjett</button>
+            </form>
             <p id="txtBeskjed"></p>
             <p id="txtHjelp"></p>
             <p id="txtGjettinger"></p>
@@ -44,7 +47,9 @@
         var maksVerdi = 10;
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
-        function gjett(){
+        function gjett(event){
+
+            event.preventDefault();
 
             // Henter ut tallet brukeren har gjettet og gjør om det til et tall
             var gjettetTall = Number(inpGjetting.value);
@@ -74,8 +79,10 @@
 
             if (gjettetTall > korrektTall) {
                 maksVerdi = gjettetTall - 1;
+                inpGjetting.maks = gjettetTall - 1;
             } else {
                 minVerdi = gjettetTall + 1;
+                inpGjetting.min = gjettetTall + 1;
             }
 
             txtHjelp.innerHTML = "Minverdi er " + minVerdi + " og maks verdi er " + maksVerdi + ".";
