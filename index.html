@@ -7,16 +7,23 @@
         footer {
             font-size: small;
         }
+        button {
+            background-color: grey;
+            padding: 5px;
+            border: 1px solid black;
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
-<body>
+<body id="body">
     <header><h1>Gjett et tall</h1></header>
     <main>
         <article>
-            <label for="inpGjetting">Gjett et tall</label>
+            <label for="inpGjetting">Gjett et tall mellom 1 og 10</label>
             <input id="inpGjetting" type="number"  min="0" max="10" onchange="gjett()">
             <p id="txtBeskjed"></p>
+            <p id="txtGjettinger"></p>
+            <button onclick="resetGjettinger()">Reset gjettinger</button>
         </article>
     </main>
 <footer>
@@ -27,8 +34,10 @@
         // Få tak på HTML-objekter
         var inpGjetting = document.getElementById("inpGjetting");
         var txtBeskjed = document.getElementById("txtBeskjed");
+        var txtGjettinger = document.getElementById("txtGjettinger");
 
-        var korrektTall = 3;
+        var korrektTall = Math.floor((Math.random()) *10) + 1;
+        var gjettinger = 0;
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(){
@@ -37,6 +46,33 @@
             var gjettetTall = Number(inpGjetting.value);
 
             /* Fortsett her for å finne ut om tallet er korrekt! */
+
+            if (gjettetTall == korrektTall) {
+                body.style.backgroundColor = "green";
+                txtBeskjed.innerHTML = "Tallet er RIKTIG"
+            } else {
+                document.getElementById("body").style.backgroundColor = "red";
+            }
+            if (gjettetTall > korrektTall) {
+                txtBeskjed.innerHTML = "Tallet er for stort"
+            }
+            if (gjettetTall < korrektTall) {
+                txtBeskjed.innerHTML = "Tallet er for lite"
+            }
+
+            gjettinger++;
+
+            if (gjettinger == 1){
+                txtGjettinger.innerHTML = "Du har gjettet 1 gang";
+            } else {
+                txtGjettinger.innerHTML = "Du har gjettet " + gjettinger + " ganger";
+            }
+
+        }
+
+        function resetGjettinger(){
+            gjettinger = 0;
+            txtGjettinger.innerHTML = "";
         }
 
     </script>
