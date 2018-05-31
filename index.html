@@ -20,8 +20,8 @@
     <main>
         <article>
             <form action="" onsubmit="gjett(event)" id="skjema">
-                <label for="inpGjetting">Gjett et tall mellom 1 og 10</label>
-                <input id="inpGjetting" type="number"  min="0" max="10">
+                <label for="inpGjetting">Gjett et tall mellom 1 og 100</label>
+                <input id="inpGjetting" type="number"  min="0" max="100">
                 <button>Gjett</button>
             </form>
             <p id="txtBeskjed"></p>
@@ -41,7 +41,7 @@
         var txtGjettinger = document.getElementById("txtGjettinger");
         var txtHjelp = document.getElementById("txtHjelp");
 
-        var korrektTall = Math.floor((Math.random()) *10) + 1;
+        var korrektTall = Math.floor((Math.random()) *100) + 1;
         var gjettinger = 0;
         var minVerdi = 0;
         var maksVerdi = 10;
