@@ -19,6 +19,9 @@
             width: 100%;
             text-align: center;
         }
+        form {
+            padding: 0;
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
@@ -53,7 +56,9 @@
         var minVerdi = 0;
         var maksVerdi = 100;
 
-        var lydKorrekt = new Audio()
+        var lydKorrekt = new Audio('lyder/lydRiktig.mp3');
+        var lydFeil = new Audio('lyder/lydFeil.mp3');
+
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(event){
@@ -67,9 +72,11 @@
 
             if (gjettetTall == korrektTall) {
                 body.style.backgroundColor = "green";
-                txtBeskjed.innerHTML = "Tallet er RIKTIG"
+                txtBeskjed.innerHTML = "Tallet er RIKTIG";
+                lydKorrekt.play();
             } else {
                 document.getElementById("body").style.backgroundColor = "red";
+                lydFeil.play();
             }
             if (gjettetTall > korrektTall) {
                 txtBeskjed.innerHTML = "Tallet er for stort"
@@ -106,6 +113,7 @@
         }
 
         function resetGjettinger() {
+
             gjettinger = 0;
             txtGjettinger.innerHTML = "";
             minVerdi = 0;
@@ -114,6 +122,8 @@
             document.getElementById("body").style.backgroundColor = "";
             txtBeskjed.innerHTML = "";
             txtHjelp.innerHTML = "";
+
+
         }
 
     </script>
