@@ -101,26 +101,25 @@
 
             /* Fortsett her for å finne ut om tallet er korrekt! */
 
-            if (gjettetTall == korrektTall) {
-                body.style.backgroundColor = "green";
-                txtBeskjed.innerHTML = "Tallet er RIKTIG";
-                lydKorrekt.play();
-            } else {
-                document.getElementById("body").style.backgroundColor = "red";
-                lydFeil.play();
-            }
+            txtGjettinger.innerHTML = "";
+            gjettinger++;
+
             if (gjettetTall > korrektTall) {
                 txtBeskjed.innerHTML = "Tallet er for stort";
                 strekSlutt.style.right = 100 - gjettetTall + "%";
-                strekSlutt.innerHTML = gjettetTall;
+                strekSlutt.innerHTML = gjettetTall - 1;
+                maksVerdi = gjettetTall - 1;
+                inpGjetting.maks = gjettetTall - 1;
             }
             if (gjettetTall < korrektTall) {
                 txtBeskjed.innerHTML = "Tallet er for lite";
                 strekStart.style.left = gjettetTall + "%";
-                strekStart.innerHTML = gjettetTall;
+                strekStart.innerHTML = gjettetTall + 1;
+                minVerdi = gjettetTall + 1;
+                inpGjetting.min = gjettetTall + 1;
             }
 
-            gjettinger++;
+            txtHjelp.innerHTML = "Minverdi er " + minVerdi + " og maks verdi er " + maksVerdi + ".";
 
             if (gjettinger == 1){
                 txtGjettinger.innerHTML = "Du har gjettet 1 gang";
@@ -128,19 +127,37 @@
                 txtGjettinger.innerHTML = "Du har gjettet " + gjettinger + " ganger";
             }
 
-            if (gjettetTall > korrektTall) {
-                maksVerdi = gjettetTall - 1;
-                inpGjetting.maks = gjettetTall - 1;
-            } else {
-                minVerdi = gjettetTall + 1;
-                inpGjetting.min = gjettetTall + 1;
-            }
-
-            txtHjelp.innerHTML = "Minverdi er " + minVerdi + " og maks verdi er " + maksVerdi + ".";
-
             if (gjettetTall == korrektTall) {
+                body.style.backgroundColor = "green";
+                txtBeskjed.innerHTML = "Tallet er RIKTIG";
+                lydKorrekt.play();
                 txtHjelp.innerHTML = "";
+                txtGjettinger.innerHTML = "";
+                minVerdi = 0;
+                maksVerdi = 100;
+                korrektTall = Math.floor((Math.random()) * 100) + 1;
+                txtBeskjed.innerHTML = "";
+                txtHjelp.innerHTML = "";
+                strekStart.style.left = "0";
+                strekSlutt.style.right = "0";
+                inpGjetting.maks = 100;
+                inpGjetting.min = 1;
+                strekSlutt.innerHTML = "";
+                strekStart.innerHTML = "";
+                txtGjettinger.innerHTML = "Du klarte det på " + gjettinger + " forsøk";
+                gjettinger = 0;
+            } else {
+                document.getElementById("body").style.backgroundColor = "red";
+                lydFeil.play();
             }
+
+            if (maksVerdi == minVerdi) {
+                strekStart.style.display = "none";
+            } else {
+                strekStart.style.display = "";
+            }
+
+
 
             inpGjetting.value = "";
 
