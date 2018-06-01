@@ -27,7 +27,7 @@
             <p id="txtBeskjed"></p>
             <p id="txtHjelp"></p>
             <p id="txtGjettinger"></p>
-            <button onclick="resetGjettinger()">Reset gjettinger</button>
+            <button onclick="resetGjettinger()">Reset</button>
         </article>
     </main>
 <footer>
@@ -44,7 +44,7 @@
         var korrektTall = Math.floor((Math.random()) *100) + 1;
         var gjettinger = 0;
         var minVerdi = 0;
-        var maksVerdi = 10;
+        var maksVerdi = 100;
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(event){
@@ -91,12 +91,20 @@
                 txtHjelp.innerHTML = "";
             }
 
+            inpGjetting.value = "";
+
 
         }
 
-        function resetGjettinger(){
+        function resetGjettinger() {
             gjettinger = 0;
             txtGjettinger.innerHTML = "";
+            minVerdi = 0;
+            maksVerdi = 100;
+            korrektTall = Math.floor((Math.random()) * 100) + 1;
+            document.getElementById("body").style.backgroundColor = "";
+            txtBeskjed.innerHTML = "";
+            txtHjelp.innerHTML = "";
         }
 
     </script>
