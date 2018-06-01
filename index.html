@@ -22,6 +22,30 @@
         form {
             padding: 0;
         }
+        div {
+            width: 100%;
+            height: 30px;
+            padding: 0;
+            margin-bottom: 20px;
+            border-bottom: solid 1px;
+            position: relative;
+        }
+        div article {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            height: 30px;
+            position: absolute;
+            transition: 1s;
+        }
+        div article:first-child {
+            border-right: solid 1px black;
+            left: 0;
+        }
+        div article:last-child {
+            border-left: solid 1px black;
+            right: 0;
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
@@ -37,6 +61,10 @@
             <p id="txtBeskjed"></p>
             <p id="txtHjelp"></p>
             <p id="txtGjettinger"></p>
+            <div>
+                <article id="strekStart"></article>
+                <article id="strekSlutt"></article>
+            </div>
             <button onclick="resetGjettinger()">Reset</button>
         </article>
     </main>
@@ -59,6 +87,9 @@
         var lydKorrekt = new Audio('lyder/lydRiktig.mp3');
         var lydFeil = new Audio('lyder/lydFeil.mp3');
 
+        var strekStart = document.getElementById("strekStart");
+        var strekSlutt = document.getElementById("strekSlutt");
+
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(event){
@@ -79,10 +110,14 @@
                 lydFeil.play();
             }
             if (gjettetTall > korrektTall) {
-                txtBeskjed.innerHTML = "Tallet er for stort"
+                txtBeskjed.innerHTML = "Tallet er for stort";
+                strekSlutt.style.right = 100 - gjettetTall + "%";
+                strekSlutt.innerHTML = gjettetTall;
             }
             if (gjettetTall < korrektTall) {
-                txtBeskjed.innerHTML = "Tallet er for lite"
+                txtBeskjed.innerHTML = "Tallet er for lite";
+                strekStart.style.left = gjettetTall + "%";
+                strekStart.innerHTML = gjettetTall;
             }
 
             gjettinger++;
@@ -122,7 +157,12 @@
             document.getElementById("body").style.backgroundColor = "";
             txtBeskjed.innerHTML = "";
             txtHjelp.innerHTML = "";
-
+            strekStart.style.left = "0";
+            strekSlutt.style.right = "0";
+            inpGjetting.maks = 100;
+            inpGjetting.min = 1;
+            strekSlutt.innerHTML = "";
+            strekStart.innerHTML = "";
 
         }
 
