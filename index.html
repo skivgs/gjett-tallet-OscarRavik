@@ -12,6 +12,13 @@
             padding: 5px;
             border: 1px solid black;
         }
+        body *{
+            padding: 10px;
+        }
+        button {
+            width: 100%;
+            text-align: center;
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
@@ -45,6 +52,8 @@
         var gjettinger = 0;
         var minVerdi = 0;
         var maksVerdi = 100;
+
+        var lydKorrekt = new Audio()
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(event){
