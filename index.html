@@ -46,6 +46,11 @@
             border-left: solid 1px black;
             right: 0;
         }
+        @media (max-width: 1000px) {
+            #langStrek {
+                display: none;
+            }
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
@@ -55,13 +60,13 @@
         <article>
             <form action="" onsubmit="gjett(event)" id="skjema">
                 <label for="inpGjetting">Gjett et tall mellom 1 og 100</label>
-                <input id="inpGjetting" type="number"  min="0" max="100">
+                <input id="inpGjetting" type="number"  min="0" max="100" autofocus>
                 <button>Gjett</button>
             </form>
             <p id="txtBeskjed"></p>
             <p id="txtHjelp"></p>
             <p id="txtGjettinger"></p>
-            <div>
+            <div id="langStrek">
                 <article id="strekStart"></article>
                 <article id="strekSlutt"></article>
             </div>
@@ -79,7 +84,7 @@
         var txtGjettinger = document.getElementById("txtGjettinger");
         var txtHjelp = document.getElementById("txtHjelp");
 
-        var korrektTall = Math.floor((Math.random()) *100) + 1;
+        var korrektTall = Math.floor((Math.random()) * 100) + 1;
         var gjettinger = 0;
         var minVerdi = 0;
         var maksVerdi = 100;
@@ -106,17 +111,19 @@
 
             if (gjettetTall > korrektTall) {
                 txtBeskjed.innerHTML = "Tallet er for stort";
-                strekSlutt.style.right = 100 - gjettetTall + "%";
+                strekSlutt.style.right = "calc(100% -  " + gjettetTall + "% - " + strekSlutt.offsetWidth + "px - 5px)";
                 strekSlutt.innerHTML = gjettetTall - 1;
                 maksVerdi = gjettetTall - 1;
                 inpGjetting.maks = gjettetTall - 1;
+                console.log("Høyre er calc(100% -  " + gjettetTall + "% - " + strekSlutt.offsetWidth + "px - 5px)")
             }
             if (gjettetTall < korrektTall) {
                 txtBeskjed.innerHTML = "Tallet er for lite";
-                strekStart.style.left = gjettetTall + "%";
+                strekStart.style.left = "calc(" + gjettetTall + "% - " + strekStart.offsetWidth + "px - 5px)";
                 strekStart.innerHTML = gjettetTall + 1;
                 minVerdi = gjettetTall + 1;
                 inpGjetting.min = gjettetTall + 1;
+                console.log("Venstre er calc(" + gjettetTall + "% - " + strekStart.offsetWidth + "px - 5px)");
             }
 
             txtHjelp.innerHTML = "Minverdi er " + minVerdi + " og maks verdi er " + maksVerdi + ".";
@@ -151,6 +158,7 @@
                 lydFeil.play();
             }
 
+
             if (maksVerdi == minVerdi) {
                 strekStart.style.display = "none";
             } else {
@@ -159,7 +167,9 @@
 
 
 
+
             inpGjetting.value = "";
+
 
 
         }
